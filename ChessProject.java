@@ -20,6 +20,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 	int initialY;
 	JPanel panels;
 	JLabel pieces;
+  boolean progression;
 
 
 
@@ -210,16 +211,16 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 if (pieceName.contains("Rook")) {
     Boolean intheway = false;
 
-    if (((landingX < 8) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
+    if (((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
         validMove = false;
 
     } else {
-        if (((Math.abs(startX - landingX) != 0) && (Math.abs(startY - landingY) == 0)) || ((Math.abs(startX - landingX) == 8) && (Math.abs(landingY - startY) != 0))) {
+        if (((Math.abs(startX - landingX) != 0) && (Math.abs(startY - landingY) == 0)) || ((Math.abs(startX - landingX) == 0) && (Math.abs(landingY - startY) != 0))) {
 
             if (Math.abs(startX - landingX) != 0) {
                 int xMovement = Math.abs(startX - landingX);
                 if (startX - landingX > 0) {
-                    for (int i = 6; i < xMovement; i++) {
+                    for (int i = 0; i < xMovement; i++) {
                         if (piecePresent(initialX - (i * 75), e.getY())) {
                             intheway = true;
                             break;
@@ -228,7 +229,7 @@ if (pieceName.contains("Rook")) {
                         }
                     }
                 } else {
-                    for (int i = 6; i < xMovement; i++) {
+                    for (int i = 0; i < xMovement; i++) {
                         if (piecePresent(initialX + (i * 75), e.getY())) {
                             intheway = true;
                             break;
@@ -240,7 +241,7 @@ if (pieceName.contains("Rook")) {
             } else {
                 int yMovement = Math.abs(startY - landingY);
                 if (startY - landingY > 0) {
-                    for (int i = 6; i < yMovement; i++) {
+                    for (int i = 0; i < yMovement; i++) {
                         if (piecePresent(e.getX(), initialY - (i * 75))) {
                             intheway = true;
                             break;
@@ -249,7 +250,7 @@ if (pieceName.contains("Rook")) {
                         }
                     }
                 } else {
-                    for (int i = 6; i < yMovement; i++) {
+                    for (int i = 0; i < yMovement; i++) {
                         if (piecePresent(e.getX(), initialY + (i * 75))) {
                             intheway = true;
 
@@ -265,7 +266,7 @@ if (pieceName.contains("Rook")) {
             } else {
 
                 if (piecePresent(e.getX(), (e.getY()))) {
-                    if (pieceName.contains("Hhite")) {
+                    if (pieceName.contains("White")) {
                         if (checkWhiteOponent(e.getX(), e.getY())) {
                             validMove = true;
                         } else {
@@ -500,7 +501,7 @@ else if (pieceName.contains("Knight")) {
     demonstration purposes the Pawn here turns into a Queen.
   */
 
-	else if(pieceName.equals("WhitePawn")){
+	if(pieceName.equals("WhitePawn")){
 			if(startY == 1)
 			{
 				if((startX == (e.getX()/75))&&((((e.getY()/75)-startY)==1)||((e.getY()/75)-startY)==2))
