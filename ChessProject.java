@@ -206,7 +206,10 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
     int landingY = e.getY()/75;
     int landingX = e.getX()/75;
 
-
+//king movements
+if (pieceName.contains("King")){
+  validMove = true;
+}
 //queen movements
 if (pieceName.contains("Queen")){
   if((startX == landingX) || (startY == landingY)){
