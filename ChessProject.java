@@ -26,6 +26,7 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 
 
 
+
     public ChessProject(){
         Dimension boardSize = new Dimension(600, 600);
 
@@ -205,18 +206,78 @@ public class ChessProject extends JFrame implements MouseListener, MouseMotionLi
 		Boolean validMove = false;
     int landingY = e.getY()/75;
     int landingX = e.getX()/75;
-
+    // system log
+    int xMovement = Math.abs((e.getX()/75)-startX);
+    int yMovement = Math.abs((e.getY()/75)-startY);
+    System.out.println("----------------------------------------------");
+    System.out.println("The piece that is being moved is : "+pieceName);
+    System.out.println("The starting coordinates are : "+"( "+startX+","+startY+")");
+    System.out.println("The xMovement is : "+xMovement);
+    System.out.println("The yMovement is : "+yMovement);
+    System.out.println("The landing coordinates are : "+"( "+landingX+","+landingY+")");
+    System.out.println("----------------------------------------------");
 //king movements
-if (pieceName.contains("King")){
-  validMove = true;
-}
+// if (pieceName.contains("King")){
+//   if (((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
+//       validMove = false;
+//     }
+//       else if((xMovement == 1) || (yMovement == 1)){
+//         if (piecePresent(e.getX(), (e.getY()))) {
+//             if (pieceName.contains("White")) {
+//                 if (checkWhiteOponent(e.getX(), e.getY())) {
+//                     validMove = true;
+//                 } else {
+//                     validMove = false;
+//                 }
+//             } else {
+//                 if (checkBlackOponent(e.getX(), e.getY())) {
+//                     validMove = true;
+//                 } else {
+//                     validMove = false;
+//                 }
+//             }
+//         }
+//     }
+//   }
+
+
+   if (pieceName.contains("King")) {
+      if (((landingX < 0) || (landingX > 7)) || ((landingY < 0) || (landingY > 7))) {
+          validMove = false;
+      } else {
+          if ((xMovement == 1) || (yMovement == 1)) {
+              if (piecePresent(e.getX(), (e.getY()))) {
+                  if (pieceName.contains("White")) {
+                      if (checkWhiteOponent(e.getX(), e.getY())) {
+                          validMove = true;
+                      } else {
+                          validMove = false;
+                      }
+                  } else {
+                      if (checkBlackOponent(e.getX(), e.getY())) {
+                          validMove = true;
+                      } else {
+                          validMove = false;
+                      }
+                  }
+              } else {
+                  validMove = true;
+              }
+          } else {
+              validMove = false;
+          }
+      }
+  }
+
+
+
 //queen movements
-if (pieceName.contains("Queen")){
+else if (pieceName.contains("Queen")){
   if((startX == landingX) || (startY == landingY)){
     boolean intheway = false;
     if (((Math.abs(startX - landingX) != 0) && (Math.abs(startY - landingY) == 0)) || ((Math.abs(startX - landingX) == 0) && (Math.abs(landingY - startY) != 0))) {
         if (Math.abs(startX - landingX) != 0) {
-            int xMovement = Math.abs(startX - landingX);
+            // int xMovement = Math.abs(startX - landingX);
             if (startX - landingX > 0) {
                 for (int i = 0; i < xMovement; i++) {
                     if (piecePresent(initialX - (i * 75), e.getY())) {
@@ -237,7 +298,7 @@ if (pieceName.contains("Queen")){
                 }
             }
         } else {
-            int yMovement = Math.abs(startY - landingY);
+            // int yMovement = Math.abs(startY - landingY);
             if (startY - landingY > 0) {
                 for (int i = 0; i < yMovement; i++) {
                     if (piecePresent(e.getX(), initialY - (i * 75))) {
@@ -365,7 +426,7 @@ else if (pieceName.contains("Rook")) {
         if (((Math.abs(startX - landingX) != 0) && (Math.abs(startY - landingY) == 0)) || ((Math.abs(startX - landingX) == 0) && (Math.abs(landingY - startY) != 0))) {
 
             if (Math.abs(startX - landingX) != 0) {
-                int xMovement = Math.abs(startX - landingX);
+                // int xMovement = Math.abs(startX - landingX);
                 if (startX - landingX > 0) {
                     for (int i = 0; i < xMovement; i++) {
                         if (piecePresent(initialX - (i * 75), e.getY())) {
@@ -386,7 +447,7 @@ else if (pieceName.contains("Rook")) {
                     }
                 }
             } else {
-                int yMovement = Math.abs(startY - landingY);
+                // int yMovement = Math.abs(startY - landingY);
                 if (startY - landingY > 0) {
                     for (int i = 0; i < yMovement; i++) {
                         if (piecePresent(e.getX(), initialY - (i * 75))) {
